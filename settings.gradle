@@ -1,0 +1,5 @@
+rootProject.name = 'saga-pattern'
+
+include 'delivery'
+include 'order'
+include 'stock'
