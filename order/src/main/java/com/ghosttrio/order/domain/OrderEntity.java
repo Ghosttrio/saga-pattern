@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class OrderEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,7 +20,7 @@ public class Order {
     private String productName;
     private Long quantity;
 
-    public static Order create(Long productId, String productName, Long quantity) {
-        return new Order(null, productId, productName, quantity);
+    public static OrderEntity create(Long productId, String productName, Long quantity) {
+        return new OrderEntity(null, productId, productName, quantity);
     }
 }

@@ -1,6 +1,6 @@
 package com.ghosttrio.stock.api;
 
-import com.ghosttrio.stock.api.request.OrderCommitRequest;
+import com.ghosttrio.stock.event.SagaEvent;
 import com.ghosttrio.stock.service.StockService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,14 +15,15 @@ public class StockConsumer {
     private final StockService stockService;
 
     @KafkaListener(topics = "order-commit" , groupId = "group-ghosttrio")
-    public void orderConsumer(OrderCommitRequest request) {
-        log.info("=====> 재고 작업 실행 (6)");
-        stockService.decreaseStock(request.getProductId(), request.getQuantity());
+    public void orderCommitConsumer(SagaEvent sagaEvent) {
+        log.info("=====> order commit 컨슈머 실행 (5)");
+        stockService.decreaseStock(sagaEvent);
     }
 
     @KafkaListener(topics = "delivery-rollback" , groupId = "group-ghosttrio")
-    public void deliveryConsumer(Long productId) {
-        stockService.rollbackStock(productId);
+    public void deliveryRollbackConsumer(SagaEvent sagaEvent) {
+        log.info("xxxxx> delivery rollback 컨슈머 실행 (2)");
+        stockService.rollbackStock(sagaEvent);
     }
 
 
